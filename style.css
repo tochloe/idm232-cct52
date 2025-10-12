@@ -1,0 +1,27 @@
+html {
+    --brown: # ;
+    --
+}
+
+@font-face {
+    font-family: 'Albert Sans', sans-serif;
+    src: url(./fonts/AlbertSans-VariableFont_wght\ copy.ttf);
+    font-weight: 100 900;
+
+    font-family: 'Hedvig Letter Serif', serif;
+    src: url(./fonts/HedvigLettersSerif-Regular-VariableFont_opsz\ copy.ttf);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Albert Sans', sans-serif;
+    background-color: #e3d4ac;
+    color: #29251b;
+    min-height: 100vh;
+    overflow: hidden;
+}
