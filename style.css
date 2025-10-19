@@ -1,6 +1,7 @@
 html {
-    --brown: # ;
-    --
+    --beige: #e3d4ac;
+    --brown: #29251b;
+    --accent: #958F22;
 }
 
 @font-face {
@@ -8,7 +9,7 @@ html {
     src: url(./fonts/AlbertSans-VariableFont_wght\ copy.ttf);
     font-weight: 100 900;
 
-    font-family: 'Hedvig Letter Serif', serif;
+    font-family: 'Hedvig Letters Serif', serif;
     src: url(./fonts/HedvigLettersSerif-Regular-VariableFont_opsz\ copy.ttf);
 }
 
@@ -19,9 +20,221 @@ html {
 }
 
 body {
-    font-family: 'Albert Sans', sans-serif;
-    background-color: #e3d4ac;
-    color: #29251b;
+    background-color:var(--beige);
+    color: var(--brown);
     min-height: 100vh;
     overflow: hidden;
+
+    display: grid;
+    grid-template-columns: 1fr 3fr;
 }
+
+.side{
+position: fixed;
+    left: 0;
+    top: 0;
+    width: 425px;
+    height: 100vh;
+    background-color: var(--beige);
+    border-right: 1px solid var(--brown);
+    overflow-y: auto;
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 2rem;
+
+    grid-column-start: 1;
+}
+
+/*
+media (max-width: 1024px) {
+    .side {
+        transform: translateX(-100%);
+        transition: transform 0.3s ease;
+    }
+
+    .side.mobile-open {
+        transform: translateX(0);
+    }
+
+    .main-content {
+        margin-left: 0;
+    }
+
+    .footer {
+        left: 0;
+        padding: 0 2rem;
+    }
+}
+*/
+
+.logo{
+    width: 229px;
+    height: 229px;
+    border-radius: 50%;
+    
+    margin: 36px auto 32px;
+    flex-shrink: 0;
+}
+
+
+
+.nav-section {
+    text-align: center;
+    padding: 0 2rem;
+}
+
+.nav-title {
+    font-family: 'Albert Sans', sans-serif;
+    font-weight: 900;
+    font-size: 36px;
+    color: var(--accent);
+    margin-bottom: 12px;
+    line-height: normal;
+}
+
+.nav-sub {
+    font-family: 'Albert Sans', sans-serif;
+    font-weight: 700;
+    font-size: 24px;
+    color: var(--brown);
+    margin-bottom: 12px;
+    line-height: normal;
+}
+
+.nav-desc {
+    font-family: 'Albert Sans', sans-serif;
+    font-weight: 500;
+    font-size: 24px;
+    color: var(--brown);
+    max-width: 336px;
+    margin: 0 auto;
+    line-height: normal;
+}
+
+.nav-tabs {
+    display: flex;
+    flex-direction: column;
+    gap: 66px;
+    margin-top: 64px;
+    padding-right: 72px;
+    text-align: right;
+}
+
+.nav-link {
+    font-family: 'Albert Sans', sans-serif;
+    font-weight: 800;
+    font-size: 24px;
+    color: var(--brown);
+    text-decoration: none;
+    line-height: normal;
+    transition: opacity 0.2s;
+}
+
+.nav-link:hover{
+    opacity: 0.7;
+}
+
+header{
+    position: sticky;
+    top: 0;
+    background-color: var(--beige);
+    border-bottom: 1px solid var(--brown);
+    height: 108px;
+    display: flex;
+    align-items: center;
+    padding: 0 2rem;
+    z-index: 20;
+    flex-shrink: 0;
+}
+
+h1{
+ font-family: 'Hedvig Letters Serif', serif;
+ font-weight: 400;
+ font-size: 32px;
+ color: var(--brown);
+ line-height: normal;
+}
+
+
+
+
+.recipe-container {
+    flex: 1;
+    overflow-y: auto;
+    padding: 2rem;
+
+    grid-column-start: 2; /**/
+}
+
+.recipe-grid {
+     display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 3rem 2rem;
+    max-width: 1200px;
+}
+
+
+.card{
+     display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: 100%;
+}
+
+.card-border{
+position: relative;
+    width: 100%;
+    aspect-ratio: 1;
+    border-radius: 20px;
+    overflow: hidden;
+    border: 1px solid var(--brown);
+}
+
+.recipe-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.recipe-title{
+  font-family: 'Albert Sans', sans-serif;
+    font-weight: 600;
+    font-size: 24px;
+    color: var(--brown);
+    line-height: normal;
+}
+
+.recipe-sub{
+font-family: 'Hedvig Letters Serif', serif;
+    font-weight: 400;
+    font-size: 16px;
+    color: var(--brown);
+    font-style: normal;
+    line-height: normal;
+}
+
+.footer{
+    position: fixed;
+    bottom: 0;
+    left: 425px;
+    right: 0;
+    height: 64px;
+    background-color: var(--beige);
+    border-top: 1px solid var(--brown);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 4rem;
+    z-index: 10;
+}
+
+.footer-text {
+    font-family: 'Albert Sans', sans-serif;
+    font-weight: 800;
+    font-size: 24px;
+    color: var(--brown);
+    line-height: normal;
+}
+
