@@ -166,12 +166,6 @@ display: flex;
 
 
 .nav-link.active {
-    font-family: 'Albert Sans', sans-serif;
-    font-weight: 800;
-    font-size: 1.5rem;
-    text-decoration: none;
-    line-height: normal;
-    transition: opacity 0.2s;
     color: var(--accent);
 }
 
@@ -623,3 +617,94 @@ font-family: 'Hedvig Letters Serif', serif;
 }
 
 */
+
+
+/*ABOUT SECTION*/
+
+
+.about-image {
+    width: 472px;
+    height: 315px;
+    margin: 0 auto 37px;
+    border-radius: 20px;
+    border: 1px solid var(--brown);
+    overflow: hidden;
+}
+
+.about-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+.about-text {
+    max-width: 740px;
+    margin: 0 auto;
+}
+
+.about-text p {
+    font-family: 'Albert Sans', sans-serif;
+    font-weight: 400;
+    font-size: 20px;
+    color: var(--brown);
+    line-height: 1.5;
+    margin-bottom: 20px;
+}
+
+.about-text p:last-child {
+    margin-bottom: 0;
+}
+
+.about-link{
+    text-decoration: none;
+    color: var(--accent);
+    transition: opacity 0.2s;
+}
+
+.about-link:hover{
+    opacity: 0.7;
+}
+
+
+
+/*HELP SECTION*/
+.center-content {
+    padding: 87px 136px 0;
+    max-width: 1011px;
+}
+
+.help-section {
+    margin-bottom: 40px;
+}
+
+.help-heading {
+    font-family: 'Albert Sans', sans-serif;
+    font-weight: 500;
+    font-size: 36px;
+    color: var(--brown);
+    margin-bottom: 8px;
+}
+
+.help-section p {
+    font-family: 'Albert Sans', sans-serif;
+    font-weight: 400;
+    font-size: 20px;
+    color: var(--brown);
+    line-height: 1.5;
+}
+
+.help-section p em {
+    font-family: 'Albert Sans', sans-serif;
+    font-style: italic;
+    font-weight: 400;
+}
+
+.help-disclaimer {
+    font-family: 'Albert Sans', sans-serif;
+    font-weight: 400;
+    font-size: 20px;
+    color: var(--brown);
+    line-height: 1.5;
+    margin-top: 54px;
+}
