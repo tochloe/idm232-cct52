@@ -9,9 +9,22 @@
 </head>
 <body>
 <!--NAVIGATION BAR-->
-    <nav class="side">
-        <div class="logo"> <!--INSWER LOGOGOGGOOGO-->  </div>
-        
+ <nav class="side">
+
+ <div class="search-container">
+            <form class="search-form" action="#" method="get">
+                <input type="search" class="search-input" placeholder="Search recipes..." aria-label="Search recipes">
+                <button type="submit" class="search-button" aria-label="Search">
+                    <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <path d="m21 21-4.35-4.35"></path>
+                    </svg>
+                </button>
+            </form>
+        </div>
+<div class="logo-container">
+       <a href="./index.html"> <img class="logo" src="images/logo.png" alt="logo"> </a>
+    </div>
         <div class="nav-section"> <!--nav class in here--> 
         <p class="nav-title">WHO'S HUNGRY?</p>
         <p class="nav-sub">Breakfast, Lunch, or Dinner</p>
@@ -25,55 +38,67 @@
         </div>
     </nav>
 <!--NAVIGATION BAR end-->
-
-<!-- <header>
+<main>
+ <header class="header">
     <h1>Popular Recipes</h1>
-</header> -->
+</header> 
 
 <div class="recipe-container">
     <div class="recipe-grid">
         
-        <article class="card">
+    <a class="recipe-card" href="./instructions.html">    <article class="card">
             <div class="card-border">
             <img src="./images/Roasted-Pork.jpg" alt="Roasted Pork &amp; Broccoli" class="recipe-img"> <!--insert img-->
             </div>
             <h2 class="recipe-title">Roasted Pork &amp; Broccoli</h2>
             <p class="recipe-sub">Apple, Cheese Sauce, &amp; Garlic Breadcrumbs</p>
         </article>
+    
+    </a>
+
 
         <article class="card">
             <div class="card-border">
-            <img src="./images/Crispy-Wild-Alaskan-Pollock.jpg" alt="Crispy Fish Sandwiches" class="recipe-img"> <!--insert img-->
+            <img src="./images/Crispy-Wild-Alaskan-Pollock.jpg" alt="Crispy Fish Sandwiches" class="recipe-img"> <!--placeholder-->
             </div>
             <h2 class="recipe-title">Crispy Fish Sandwiches</h2>
             <p class="recipe-sub">Tartar Sauce &amp; Roasted Sweet Potato Wedges</p>
         </article>
         <article class="card">
             <div class="card-border">
-            <img src="./images/Crispy-Wild-Alaskan-Pollock.jpg" alt="Crispy Fish Sandwiches" class="recipe-img"> <!--insert img-->
+            <img src="./images/Crispy-Wild-Alaskan-Pollock.jpg" alt="Crispy Fish Sandwiches" class="recipe-img"> <!--placeholder-->
             </div>
             <h2 class="recipe-title">Crispy Fish Sandwiches</h2>
             <p class="recipe-sub">Tartar Sauce &amp; Roasted Sweet Potato Wedges</p>
         </article>
         <article class="card">
             <div class="card-border">
-            <img src="./images/Crispy-Wild-Alaskan-Pollock.jpg" alt="Crispy Fish Sandwiches" class="recipe-img"> <!--insert img-->
+            <img src="./images/Crispy-Wild-Alaskan-Pollock.jpg" alt="Crispy Fish Sandwiches" class="recipe-img"> <!--placeholder-->
             </div>
             <h2 class="recipe-title">Crispy Fish Sandwiches</h2>
             <p class="recipe-sub">Tartar Sauce &amp; Roasted Sweet Potato Wedges</p>
         </article>
         <article class="card">
             <div class="card-border">
-            <img src="./images/Crispy-Wild-Alaskan-Pollock.jpg" alt="Crispy Fish Sandwiches" class="recipe-img"> <!--insert img-->
+            <img src="./images/Crispy-Wild-Alaskan-Pollock.jpg" alt="Crispy Fish Sandwiches" class="recipe-img"> <!--placeholder-->
             </div>
             <h2 class="recipe-title">Crispy Fish Sandwiches</h2>
             <p class="recipe-sub">Tartar Sauce &amp; Roasted Sweet Potato Wedges</p>
         </article>
+        <article class="card">
+            <div class="card-border">
+            <img src="./images/Crispy-Wild-Alaskan-Pollock.jpg" alt="Crispy Fish Sandwiches" class="recipe-img"> <!--placeholder-->
+            </div>
+            <h2 class="recipe-title">Crispy Fish Sandwiches</h2>
+            <p class="recipe-sub">Tartar Sauce &amp; Roasted Sweet Potato Wedges</p>
+        </article>
+
+
 
     </div>
 </div>
 
-<article></article>
+</main>
 
 <footer class="footer">
     <p class="footer-text">2025</p>
