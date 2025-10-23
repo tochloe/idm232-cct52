@@ -2,6 +2,7 @@ html {
     --beige: #e3d4ac;
     --brown: #29251b;
     --accent: #958F22;
+      scroll-behavior: smooth;
 }
 
 @font-face {
@@ -353,6 +354,12 @@ font-family: 'Hedvig Letters Serif', serif;
 @media (max-width: 1024px) {
     body {
         display: block;
+        overflow: auto;
+    }
+    main{
+        height:auto;
+        min-height: 100vh;
+        overflow-y: auto;
     }
 
 
