@@ -445,11 +445,18 @@ font-family: 'Hedvig Letters Serif', serif;
     .main-content {
         margin-left: 0;
     }
+    .about-content,
+    .help-content {
+        padding-left: 40px;
+        padding-right: 40px;
+    }
 
     .footer {
         left: 0;
         padding: 0 2rem;
     }
+
+
 
 }
 
@@ -467,8 +474,8 @@ font-family: 'Hedvig Letters Serif', serif;
 
 
 .menu-img {
-  width: 28px;    
-  height: 28px;
+  width: 44px;    
+  height: 44px;
   object-fit: contain;
 }
 
@@ -513,6 +520,18 @@ font-family: 'Hedvig Letters Serif', serif;
 
     .recipe-container {
         padding: 1.5rem;
+    }
+
+     .about-content,
+    .help-content {
+        padding: 40px 20px;
+    }
+    
+    .about-image {
+        width: 100%;
+        max-width: 400px;
+        height: auto;
+        aspect-ratio: 472 / 315;
     }
 
     .footer {
