@@ -66,7 +66,7 @@ position: fixed;
   display: flex;
   flex-direction: column;
   justify-content: flex-start; 
-  align-items: flex-end; /
+  align-items: center; /
   gap: 1.5rem; 
 
  
@@ -134,6 +134,7 @@ display: flex;
     margin-top: 4rem;
     padding-right: 4.5rem;
     text-align: right;
+    
 }
 
 .nav-link {
@@ -401,13 +402,13 @@ font-family: 'Hedvig Letters Serif', serif;
   }
 
     .logo {
-        margin: 0 auto 2rem;
+        display: none;
     }
 
   .nav-tabs {
     display: none; 
     flex-direction: column;
-    position: absolute;
+    position: static;
     top: 60px;
     left: 0;
     width: 100%;
@@ -459,7 +460,7 @@ font-family: 'Hedvig Letters Serif', serif;
     }
 
     .footer {
-        left: 0;
+        width: 100%;
         padding: 0 2rem;
     }
 
