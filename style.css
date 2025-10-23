@@ -570,21 +570,21 @@ font-family: 'Hedvig Letters Serif', serif;
 
 
 .sideb::-webkit-scrollbar,
-.recipe-container::-webkit-scrollbar,
+.recipe-detail-content::-webkit-scrollbar,
 .error-content-container::-webkit-scrollbar,
  .center-content::-webkit-scrollbar{
     width: 8px;
 }
 
 .side::-webkit-scrollbar-track,
-.recipe-container::-webkit-scrollbar-track,
+.recipe-detail-content::-webkit-scrollbar-track,
 .error-content-container::-webkit-scrollbar-track,
  .center-content::-webkit-scrollbar-track{
     background: transparent;
 }
 
 .side::-webkit-scrollbar-thumb,
-.recipe-container::-webkit-scrollbar-thumb,
+.recipe-detail-content::-webkit-scrollbar-thumb,
 .error-content-container::-webkit-scrollbar-thumb,
 .center-content::-webkit-scrollbar-thumb {
     background: var(--brown);
@@ -592,7 +592,7 @@ font-family: 'Hedvig Letters Serif', serif;
 }
 
 .sidebar::-webkit-scrollbar-thumb:hover,
-.recipe-grid-container::-webkit-scrollbar-thumb:hover,
+.recipe-detail-content::-webkit-scrollbar-thumb:hover,
 .error-content-container::-webkit-scrollbar-thumb:hover,
 .center-content::-webkit-scrollbar-thumb:hover  {
     background: var(--brown);
