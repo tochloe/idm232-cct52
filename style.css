@@ -530,7 +530,7 @@ font-family: 'Hedvig Letters Serif', serif;
         padding: 1.5rem;
     }
 
-     .about-content,
+     .center-content,
     .help-content {
         padding: 40px 20px;
     }
@@ -540,6 +540,18 @@ font-family: 'Hedvig Letters Serif', serif;
         max-width: 400px;
         height: auto;
         aspect-ratio: 472 / 315;
+    }
+
+.error-content-container {
+        padding: 1.5rem;
+    }
+
+    .error-title {
+        font-size: 64px;
+    }
+
+    .error-message {
+        font-size: 18px;
     }
 
     .footer {
@@ -557,28 +569,34 @@ font-family: 'Hedvig Letters Serif', serif;
 }
 
 
-/* Scrollbar Styling */
-.side::-webkit-scrollbar,
-.recipe-grid::-webkit-scrollbar {
+.sideb::-webkit-scrollbar,
+.recipe-container::-webkit-scrollbar,
+.error-content-container::-webkit-scrollbar,
+ .center-content::-webkit-scrollbar{
     width: 8px;
 }
 
 .side::-webkit-scrollbar-track,
-.recipe-grid::-webkit-scrollbar-track {
+.recipe-container::-webkit-scrollbar-track,
+.error-content-container::-webkit-scrollbar-track,
+ .center-content::-webkit-scrollbar-track{
     background: transparent;
 }
 
 .side::-webkit-scrollbar-thumb,
-.recipe-grid::-webkit-scrollbar-thumb {
-    background: rgba(41, 37, 27, 0.2);
+.recipe-container::-webkit-scrollbar-thumb,
+.error-content-container::-webkit-scrollbar-thumb,
+.center-content::-webkit-scrollbar-thumb {
+    background: var(--brown);
     border-radius: 4px;
 }
 
-.side::-webkit-scrollbar-thumb:hover,
-.recipe-grid::-webkit-scrollbar-thumb:hover {
-    background: rgba(41, 37, 27, 0.3);
+.sidebar::-webkit-scrollbar-thumb:hover,
+.recipe-grid-container::-webkit-scrollbar-thumb:hover,
+.error-content-container::-webkit-scrollbar-thumb:hover,
+.center-content::-webkit-scrollbar-thumb:hover  {
+    background: var(--brown);
 }
-
 
 
 /*INSTRUCTIONS*/
@@ -783,6 +801,40 @@ font-family: 'Hedvig Letters Serif', serif;
 }
 
 
+/*ERROR*/
+.error-content-container {
+    flex: 1;
+    overflow-y: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+}
+
+.error-content {
+    text-align: center;
+    max-width: 740px;
+    width: 100%;
+}
+
+.error-title {
+    font-family: 'Albert Sans', sans-serif;
+    font-weight: 600;
+    font-size: 128px;
+    color: var(--accent);
+    line-height: normal;
+    margin-bottom: 2rem;
+    white-space: nowrap;
+}
+
+.error-message {
+    font-family: 'Albert Sans', sans-serif;
+    font-weight: 400;
+    font-size: 20px;
+    color: var(--brown);
+    line-height: normal;
+    text-align: center;
+}
 
 
 
