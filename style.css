@@ -402,7 +402,7 @@ font-family: 'Hedvig Letters Serif', serif;
   }
 
     .logo {
-        display: none;
+        display: flex;
     }
 
   .nav-tabs {
