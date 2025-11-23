@@ -76,115 +76,124 @@ $conn->close();
         <label for="nav-toggle" class="menu-icon">
             <img src="./images/logo.png" alt="logo" class="menu-img">
         </label>
-        <h1><?= htmlspecialchars($recipe['title']) ?></h1>
+        <div class="recipe-detail">
+            <h1><?= htmlspecialchars($recipe['title']) ?></h1>
+            <p><?= htmlspecialchars($recipe['subheading']) ?></p>
+        </div>
     </header>
 
-    <div class="recipe-container">
+    <div class="recipe-detail-content">
         <!-- Hero Image -->
-        <div class="hero-section">
+        <?php if (!empty($recipe['hero_img'])): ?>
+        <div class="recipe-hero-image">
             <img src="img/<?= htmlspecialchars($recipe['hero_img']) ?>" 
-                 alt="<?= htmlspecialchars($recipe['title']) ?>" 
-                 class="hero-image">
+                 alt="<?= htmlspecialchars($recipe['title']) ?>">
         </div>
-
-        <!-- Recipe Header -->
-        <div class="recipe-header">
-            <h2 class="recipe-subtitle"><?= htmlspecialchars($recipe['subheading']) ?></h2>
-            <?php if (!empty($recipe['culture'])): ?>
-            <p class="recipe-culture"><strong>Cuisine:</strong> <?= htmlspecialchars($recipe['culture']) ?></p>
-            <?php endif; ?>
-        </div>
+        <?php endif; ?>
 
         <!-- Bio/Description -->
         <?php if (!empty($recipe['bio'])): ?>
-        <section class="recipe-section">
-            <p class="recipe-bio"><?= nl2br(htmlspecialchars($recipe['bio'])) ?></p>
-        </section>
+        <div class="recipe-description">
+            <?= nl2br(htmlspecialchars($recipe['bio'])) ?>
+        </div>
         <?php endif; ?>
 
-        <!-- Ingredients Section -->
+        <!-- Ingredients Section with Image -->
         <?php if (!empty($recipe['ingredients'])): ?>
-        <section class="recipe-section ingredients-section">
-            <h3 class="section-title">Ingredients</h3>
-            <?php if (!empty($recipe['ingredients_image'])): ?>
-            <div class="section-image">
-                <img src="img/<?= htmlspecialchars($recipe['ingredients_image']) ?>" 
-                     alt="Ingredients for <?= htmlspecialchars($recipe['title']) ?>"
-                     class="step-img">
-            </div>
-            <?php endif; ?>
-            <div class="ingredients-content">
+        <div class="recipe-ingredients">
+            <h2 class="ingredients-title">Ingredients</h2>
+            <div class="ingredients-list">
                 <?= nl2br(htmlspecialchars($recipe['ingredients'])) ?>
             </div>
-        </section>
+        </div>
         <?php endif; ?>
 
-        <!-- Tools Section -->
-        <?php if (!empty($recipe['tools'])): ?>
-        <section class="recipe-section tools-section">
-            <h3 class="section-title">Tools You'll Need</h3>
-            <div class="tools-content">
-                <?= nl2br(htmlspecialchars($recipe['tools'])) ?>
-            </div>
-        </section>
+        <!-- Ingredients Image (if separate) -->
+        <?php if (!empty($recipe['ingredients_image'])): ?>
+        <div class="recipe-step-image">
+            <img src="img/<?= htmlspecialchars($recipe['ingredients_image']) ?>" 
+                 alt="Ingredients for <?= htmlspecialchars($recipe['title']) ?>">
+        </div>
         <?php endif; ?>
 
-        <!-- Recipe Instructions with Step Images -->
+        <!-- Recipe Instructions -->
         <?php if (!empty($recipe['recipe'])): ?>
-        <section class="recipe-section instructions-section">
-            <h3 class="section-title">Instructions</h3>
-            
-            <div class="instructions-content">
-                <?= nl2br(htmlspecialchars($recipe['recipe'])) ?>
+        <div class="recipe-instructions">
+            <?= nl2br(htmlspecialchars($recipe['recipe'])) ?>
+        </div>
+        <?php endif; ?>
+
+        <!-- Step Images - Display based on how many exist -->
+        <?php 
+        $stepImages = [];
+        if (!empty($recipe['step1_img'])) $stepImages[] = $recipe['step1_img'];
+        if (!empty($recipe['step2_img'])) $stepImages[] = $recipe['step2_img'];
+        if (!empty($recipe['step3_img'])) $stepImages[] = $recipe['step3_img'];
+        if (!empty($recipe['step4_img'])) $stepImages[] = $recipe['step4_img'];
+        
+        $imageCount = count($stepImages);
+        ?>
+
+        <?php if ($imageCount == 1): ?>
+            <div class="recipe-step-image">
+                <img src="img/<?= htmlspecialchars($stepImages[0]) ?>" alt="Step 1">
             </div>
-
-            <!-- Step Images -->
-            <div class="steps-gallery">
-                <?php if (!empty($recipe['step1_img'])): ?>
-                <div class="step-image">
-                    <img src="img/<?= htmlspecialchars($recipe['step1_img']) ?>" 
-                         alt="Step 1" class="step-img">
+        <?php elseif ($imageCount == 2): ?>
+            <div class="duo-img">
+                <div class="recipe-grid-image">
+                    <img src="img/<?= htmlspecialchars($stepImages[0]) ?>" alt="Step 1">
                 </div>
-                <?php endif; ?>
-
-                <?php if (!empty($recipe['step2_img'])): ?>
-                <div class="step-image">
-                    <img src="img/<?= htmlspecialchars($recipe['step2_img']) ?>" 
-                         alt="Step 2" class="step-img">
+                <div class="recipe-grid-image">
+                    <img src="img/<?= htmlspecialchars($stepImages[1]) ?>" alt="Step 2">
                 </div>
-                <?php endif; ?>
-
-                <?php if (!empty($recipe['step3_img'])): ?>
-                <div class="step-image">
-                    <img src="img/<?= htmlspecialchars($recipe['step3_img']) ?>" 
-                         alt="Step 3" class="step-img">
-                </div>
-                <?php endif; ?>
-
-                <?php if (!empty($recipe['step4_img'])): ?>
-                <div class="step-image">
-                    <img src="img/<?= htmlspecialchars($recipe['step4_img']) ?>" 
-                         alt="Step 4" class="step-img">
-                </div>
-                <?php endif; ?>
             </div>
-        </section>
+        <?php elseif ($imageCount == 3): ?>
+            <div class="recipe-step-image">
+                <img src="img/<?= htmlspecialchars($stepImages[0]) ?>" alt="Step 1">
+            </div>
+            <div class="duo-img">
+                <div class="recipe-grid-image">
+                    <img src="img/<?= htmlspecialchars($stepImages[1]) ?>" alt="Step 2">
+                </div>
+                <div class="recipe-grid-image">
+                    <img src="img/<?= htmlspecialchars($stepImages[2]) ?>" alt="Step 3">
+                </div>
+            </div>
+        <?php elseif ($imageCount == 4): ?>
+            <div class="duo-img">
+                <div class="recipe-grid-image">
+                    <img src="img/<?= htmlspecialchars($stepImages[0]) ?>" alt="Step 1">
+                </div>
+                <div class="recipe-grid-image">
+                    <img src="img/<?= htmlspecialchars($stepImages[1]) ?>" alt="Step 2">
+                </div>
+            </div>
+            <div class="duo-img">
+                <div class="recipe-grid-image">
+                    <img src="img/<?= htmlspecialchars($stepImages[2]) ?>" alt="Step 3">
+                </div>
+                <div class="recipe-grid-image">
+                    <img src="img/<?= htmlspecialchars($stepImages[3]) ?>" alt="Step 4">
+                </div>
+            </div>
         <?php endif; ?>
 
         <!-- Tips Section -->
         <?php if (!empty($recipe['tips'])): ?>
-        <section class="recipe-section tips-section">
-            <h3 class="section-title">Tips & Tricks</h3>
-            <div class="tips-content">
-                <?= nl2br(htmlspecialchars($recipe['tips'])) ?>
-            </div>
-        </section>
+        <div class="recipe-instructions">
+            <strong>Tips & Tricks:</strong><br>
+            <?= nl2br(htmlspecialchars($recipe['tips'])) ?>
+        </div>
         <?php endif; ?>
 
-        <!-- Back Button -->
-        <div class="recipe-actions">
-            <a href="index.php" class="btn-back">← Back to All Recipes</a>
+        <!-- Tools Section -->
+        <?php if (!empty($recipe['tools'])): ?>
+        <div class="recipe-instructions">
+            <strong>Tools You'll Need:</strong><br>
+            <?= nl2br(htmlspecialchars($recipe['tools'])) ?>
         </div>
+        <?php endif; ?>
+
     </div>
 </main>
 

@@ -640,11 +640,11 @@ main::-webkit-scrollbar-thumb:hover{
 .recipe-hero-image {
     position: relative;
     width: 100%;
-    max-width: 964px;
+    max-width: 740px;
     height: 332px;
     border-radius: 20px;
     overflow: hidden;
-    margin-bottom: 48px;
+    margin: 0 auto 48px;
     border: 1px solid var(--brown);
 }
 
