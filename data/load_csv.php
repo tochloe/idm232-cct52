@@ -1,22 +1,25 @@
 <?php
 
 function loadRecipes() {
-    $csvFile = __DIR__ . "/recipes.csv";
+    $filepath = __DIR__ . "/recipes.csv";
 
-    if (!file_exists($csvFile)) {
-        return [];  // IMPORTANT: prevents NULL
+    if (!file_exists($filepath)) {
+        die("CSV file not found: " . $filepath);
     }
 
-    $rows = array_map('str_getcsv', file($csvFile));
-    $header = array_shift($rows);
-
+    $file = fopen($filepath, "r");
     $recipes = [];
 
-    foreach ($rows as $row) {
-        if (count($row) === count($header)) {
-            $recipes[] = array_combine($header, $row);
+    // header row
+    $headers = fgetcsv($file);
+
+    // data rows
+    while (($row = fgetcsv($file)) !== false) {
+        if (count($row) === count($headers)) {
+            $recipes[] = array_combine($headers, $row);
         }
     }
 
+    fclose($file);
     return $recipes;
 }
