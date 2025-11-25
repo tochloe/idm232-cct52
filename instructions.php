@@ -66,15 +66,15 @@ $conn->close();
     
     <div class="nav-tabs">
         <a href="./index.php" class="nav-link active">Recipes</a>
-        <a href="./about.html" class="nav-link">About</a>
-        <a href="./help.html" class="nav-link">Help</a>
+        <a href="./about.php" class="nav-link">About</a>
+        <a href="./help.php" class="nav-link">Help</a>
     </div>
 </nav>
 
 <main>
     <header class="header">
         <label for="nav-toggle" class="menu-icon">
-            <img src="./images/logo.png" alt="logo" class="menu-img">
+            <img src="img/whos_hungry_logo.svg" alt="logo" class="menu-img">
         </label>
         <div class="recipe-detail">
             <h1><?= htmlspecialchars($recipe['title']) ?></h1>

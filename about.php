@@ -1,0 +1,79 @@
+<?php
+// Handle search redirect
+if (isset($_GET['search']) && !empty($_GET['search'])) {
+    $term = urlencode($_GET['search']);
+    header("Location: index.php?search=$term");
+    exit;
+}
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./normalize.css">
+    <link rel="stylesheet" href="./style.css">
+    <title>WHO'S HUNGRY? | About</title>
+</head>
+<body>
+
+<input type="checkbox" id="nav-toggle" class="nav-toggle">
+
+<nav class="side">
+
+    <div class="search-container">
+        <form class="search-form" action="" method="get">
+            <input type="search" name="search" class="search-input" placeholder="Search recipes..." aria-label="Search recipes">
+            <button type="submit" class="search-button" aria-label="Search">
+                <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <path d="m21 21-4.35-4.35"></path>
+                </svg>
+            </button>
+        </form>
+    </div>
+
+    <div class="logo-container">
+        <a href="./index.php"><img class="logo" src="img/whos_hungry_logo.svg" alt="logo"></a>
+    </div>
+
+    <div class="nav-section">
+        <p class="nav-title">WHO'S HUNGRY?</p>
+        <p class="nav-sub">Breakfast, Lunch, or Dinner</p>
+        <p class="nav-desc">A collection of recipes for any occasion and any skill level from all over the world. Cook with us!</p>
+    </div>
+
+    <div class="nav-tabs">
+        <a href="./index.php" class="nav-link">Recipes</a>
+        <a href="./about.php" class="nav-link active">About</a>
+        <a href="./help.php" class="nav-link">Help</a>
+    </div>
+</nav>
+
+<main>
+<header class="header">
+    <label for="nav-toggle" class="menu-icon">
+        <img src="img/whos_hungry_logo.svg" alt="logo" class="menu-img">
+    </label>
+    <h1>About</h1> 
+</header> 
+
+<div class="center-content">
+    <div class="about-image">
+        <img src="./images/about-me.png" alt="Profile photo">
+    </div>
+                
+    <div class="about-text">
+        <p><strong>WHO'S HUNGRY?</strong> is a phrase I find myself saying in every group chat, in every social gathering, at any point in time...</p>
+        <p>Check out my micro food blog: <a class="about-link" href="https://idm222-cct52.netlify.app/home" target="_blank">Let's Grab Lunch</a></p>
+    </div>
+</div>
+
+</main>
+
+<footer class="footer">
+    <p class="footer-text">2025</p>
+    <p class="footer-text">IDM232_CCT52</p>
+</footer>
+</body>
+</html>

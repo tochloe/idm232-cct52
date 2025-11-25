@@ -4,8 +4,29 @@ require_once("db.php");
 // connect to database
 $conn = db_connect();
 
-function loadRecipesFromDatabase($conn) {
-    $sql = "SELECT id, title, subheading, culture, hero_img FROM recipes3";
+// get search term if user submitted a search
+$searchTerm = $_GET['search'] ?? '';
+
+// UPDATED: allow searching
+function loadRecipesFromDatabase($conn, $searchTerm = '') {
+
+    if ($searchTerm !== '') {
+        // escape to prevent SQL injection
+        $safe = $conn->real_escape_string($searchTerm);
+
+        // Search by title, subheading, or culture
+        $sql = "
+            SELECT id, title, subheading, culture, hero_img 
+            FROM recipes3
+            WHERE title LIKE '%$safe%'
+               OR subheading LIKE '%$safe%'
+               OR culture LIKE '%$safe%'
+        ";
+    } else {
+        // Default: show all recipes
+        $sql = "SELECT id, title, subheading, culture, hero_img FROM recipes3";
+    }
+
     $result = $conn->query($sql);
 
     if (!$result) {
@@ -21,10 +42,11 @@ function loadRecipesFromDatabase($conn) {
     return $recipes;
 }
 
-$recipes = loadRecipesFromDatabase($conn);
+// load recipes based on search
+$recipes = loadRecipesFromDatabase($conn, $searchTerm);
+
 $conn->close();
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -42,8 +64,15 @@ $conn->close();
 <nav class="side">
 
     <div class="search-container">
-        <form class="search-form" action="#" method="get">
-            <input type="search" class="search-input" placeholder="Search recipes..." aria-label="Search recipes">
+        <form class="search-form" action="index.php" method="get">
+            <input 
+                type="search" 
+                class="search-input" 
+                name="search"
+                value="<?= htmlspecialchars($searchTerm) ?>"
+                placeholder="Search recipes..." 
+                aria-label="Search recipes"
+            >
             <button type="submit" class="search-button" aria-label="Search">
                 <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <circle cx="11" cy="11" r="8"></circle>
@@ -65,8 +94,8 @@ $conn->close();
 
     <div class="nav-tabs">
         <a href="./index.php" class="nav-link active">Recipes</a>
-        <a href="./about.html" class="nav-link">About</a>
-        <a href="./help.html" class="nav-link">Help</a>
+        <a href="./about.php" class="nav-link">About</a>
+        <a href="./help.php" class="nav-link">Help</a>
     </div>
 </nav>
 <!-- NAVIGATION BAR end -->
@@ -74,13 +103,23 @@ $conn->close();
 <main>
 <header class="header">
     <label for="nav-toggle" class="menu-icon">
-        <img src="./images/logo.png" alt="logo" class="menu-img">
+        <img src="img/whos_hungry_logo.svg" alt="logo" class="menu-img">
     </label>
-    <h1>Popular Recipes</h1>
+   <h1 class="header-title">
+    <?php if ($searchTerm): ?>
+        Results for “<?= htmlspecialchars($searchTerm) ?>”
+    <?php else: ?>
+        Popular Recipes
+    <?php endif; ?>
+    </h1>
 </header> 
 
 <div class="recipe-container">
     <div class="recipe-grid">
+
+        <?php if (count($recipes) === 0): ?>
+            <p class="no-results">No recipes found for “<?= htmlspecialchars($searchTerm) ?>”</p>
+        <?php endif; ?>
 
         <?php foreach ($recipes as $recipe): ?>
         <a class="recipe-card" href="./instructions.php?id=<?= $recipe['id'] ?>">
@@ -92,7 +131,7 @@ $conn->close();
                         class="recipe-img"
                     >
                 </div>
-                <div class="category-badge"><?php echo htmlspecialchars($recipe['culture']); ?></div>
+                <div class="category-badge"><?= htmlspecialchars($recipe['culture']) ?></div>
                 <h2 class="recipe-title"><?= htmlspecialchars($recipe['title']) ?></h2>
                 <p class="recipe-sub">with <?= htmlspecialchars($recipe['subheading']) ?></p>
             </article>
