@@ -1,4 +1,0 @@
-SetEnv DB_SERVER localhost
-SetEnv DB_USERNAME cct52
-SetEnv DB_PASSWORD J/5X74IpqDWLdcAu
-SetEnv DB_NAME cct52_232
