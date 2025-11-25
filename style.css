@@ -848,11 +848,11 @@ main::-webkit-scrollbar-thumb:hover{
 }
 
 
-
 /*HELP SECTION*/
 .center-content {
-    padding: 87px 136px 0;
-    max-width: 1011px;
+    padding: 40px 40px 0; 
+    max-width: 800px;     
+    margin: 0 auto; 
 }
 
 .help-section {
@@ -919,3 +919,150 @@ main::-webkit-scrollbar-thumb:hover{
     background-color: var(--accent);
     color: var(--beige);
 }
+
+/* =========================================
+   GLOBAL RESPONSIVE FIXES
+   ========================================= */
+
+/* Smaller desktops & tablets */
+@media (max-width: 1200px) {
+    body {
+        grid-template-columns: 1fr 2fr;
+    }
+
+    .side {
+        width: 40%;
+    }
+
+    .center-content {
+        padding: 60px 60px 0;
+    }
+}
+
+/* Tablets and landscape mobile */
+@media (max-width: 900px) {
+
+    /* Sidebar becomes slide-out */
+    body {
+        display: block;
+        overflow: auto;
+    }
+
+    .side {
+        width: 75%;
+        left: -100%;
+        padding: 2rem;
+    }
+
+    .nav-toggle:checked ~ .side {
+        left: 0;
+    }
+
+    main {
+        height: auto;
+        min-height: 100vh;
+        padding-bottom: 80px;
+    }
+
+    .header {
+        padding: 0 1.25rem;
+        height: 90px;
+    }
+
+    h1 {
+        font-size: 26px;
+    }
+
+    /* About section */
+    .center-content {
+        padding: 40px 30px 0;
+    }
+
+    .about-image {
+      width: 100%;
+    height: auto;
+    max-width: 100%;
+    }
+
+    @media (max-width: 600px) {
+    .center-content {
+        padding: 1.5rem;
+    }
+}
+
+    .about-text p {
+        font-size: 18px;
+        margin-bottom: 18px;
+    }
+
+    /* Recipe grid */
+    .recipe-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 2rem 1rem;
+    }
+}
+
+
+@media (max-width: 650px) {
+
+
+    .side {
+        width: 85%;
+    }
+
+    .menu-img {
+        width: 36px;
+        height: 36px;
+    }
+
+
+    h1 {
+        font-size: 20px;
+    }
+
+
+    .recipe-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .center-content {
+        padding: 24px 20px 0;
+    }
+
+    .about-text p {
+        font-size: 16px;
+    }
+
+
+    .footer {
+        height: 52px;
+        padding: 0 1rem;
+    }
+
+    .footer-text {
+        font-size: 16px;
+    }
+}
+
+/* 
+@media (max-width: 420px) {
+
+    .nav-title {
+        font-size: 1.6rem;
+    }
+
+    .nav-desc {
+        font-size: 1rem;
+    }
+
+    .search-input {
+        font-size: 0.9rem;
+        padding: 0.75rem 2.4rem 0.75rem 1rem;
+    }
+
+    .search-button {
+        width: 2rem;
+        height: 2rem;
+    }
+}
+    */
