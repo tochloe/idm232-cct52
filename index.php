@@ -54,7 +54,7 @@ $conn->close();
     </div>
 
     <div class="logo-container">
-        <a href="./index.php"><img class="logo" src="images/logo.png" alt="logo"></a>
+        <a href="./index.php"><img class="logo" src="img/whos_hungry_logo.svg" alt="logo"></a>
     </div>
 
     <div class="nav-section">

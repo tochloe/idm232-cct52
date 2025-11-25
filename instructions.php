@@ -55,7 +55,7 @@ $conn->close();
     </div>
     
     <div class="logo-container">
-        <a href="./index.php"><img class="logo" src="images/logo.png" alt="logo"></a>
+        <a href="./index.php"><img class="logo" src="img/whos_hungry_logo.svg" alt="logo"></a>
     </div>
     
     <div class="nav-section">
@@ -78,7 +78,7 @@ $conn->close();
         </label>
         <div class="recipe-detail">
             <h1><?= htmlspecialchars($recipe['title']) ?></h1>
-            <p><?= htmlspecialchars($recipe['subheading']) ?></p>
+            <p>with <?= htmlspecialchars($recipe['subheading']) ?></p>
         </div>
     </header>
 
