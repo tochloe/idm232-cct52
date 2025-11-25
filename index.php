@@ -5,7 +5,7 @@ require_once("db.php");
 $conn = db_connect();
 
 function loadRecipesFromDatabase($conn) {
-    $sql = "SELECT id, title, subheading, hero_img FROM recipes_1";
+    $sql = "SELECT id, title, subheading, culture, hero_img FROM recipes3";
     $result = $conn->query($sql);
 
     if (!$result) {
@@ -92,6 +92,7 @@ $conn->close();
                         class="recipe-img"
                     >
                 </div>
+                <div class="category-badge"><?php echo htmlspecialchars($recipe['culture']); ?></div>
                 <h2 class="recipe-title"><?= htmlspecialchars($recipe['title']) ?></h2>
                 <p class="recipe-sub">with <?= htmlspecialchars($recipe['subheading']) ?></p>
             </article>

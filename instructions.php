@@ -13,7 +13,7 @@ if ($recipe_id <= 0) {
 $conn = db_connect();
 
 // Fetch recipe details
-$sql = "SELECT * FROM recipes_1 WHERE id = ?";
+$sql = "SELECT * FROM recipes3 WHERE id = ?";
 $stmt = $conn->prepare($sql);
 $stmt->bind_param("i", $recipe_id);
 $stmt->execute();
@@ -119,7 +119,7 @@ $conn->close();
         <!-- Recipe Instructions -->
         <?php if (!empty($recipe['recipe'])): ?>
         <div class="recipe-instructions">
-            <?= nl2br(htmlspecialchars($recipe['recipe'])) ?>
+            <?= nl2br(htmlspecialchars(stripslashes($recipe['recipe']))) ?>
         </div>
         <?php endif; ?>
 
@@ -182,7 +182,7 @@ $conn->close();
         <?php if (!empty($recipe['tips'])): ?>
         <div class="recipe-instructions">
             <strong>Tips & Tricks:</strong><br>
-            <?= nl2br(htmlspecialchars($recipe['tips'])) ?>
+            <?= nl2br(htmlspecialchars(stripslashes($recipe['tips']))) ?>
         </div>
         <?php endif; ?>
 
