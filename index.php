@@ -11,10 +11,8 @@ $searchTerm = $_GET['search'] ?? '';
 function loadRecipesFromDatabase($conn, $searchTerm = '') {
 
     if ($searchTerm !== '') {
-        // escape to prevent SQL injection
         $safe = $conn->real_escape_string($searchTerm);
 
-        // Search by title, subheading, or culture
         $sql = "
             SELECT id, title, subheading, culture, hero_img 
             FROM recipes3
@@ -23,7 +21,6 @@ function loadRecipesFromDatabase($conn, $searchTerm = '') {
                OR culture LIKE '%$safe%'
         ";
     } else {
-        // Default: show all recipes
         $sql = "SELECT id, title, subheading, culture, hero_img FROM recipes3";
     }
 
@@ -42,7 +39,6 @@ function loadRecipesFromDatabase($conn, $searchTerm = '') {
     return $recipes;
 }
 
-// load recipes based on search
 $recipes = loadRecipesFromDatabase($conn, $searchTerm);
 
 $conn->close();
@@ -98,28 +94,44 @@ $conn->close();
         <a href="./help.php" class="nav-link">Help</a>
     </div>
 </nav>
-<!-- NAVIGATION BAR end -->
+<!-- NAV END -->
 
 <main>
+
 <header class="header">
     <label for="nav-toggle" class="menu-icon">
         <img src="img/whos_hungry_logo.svg" alt="logo" class="menu-img">
     </label>
-   <h1 class="header-title">
-    <?php if ($searchTerm): ?>
-        Results for “<?= htmlspecialchars($searchTerm) ?>”
-    <?php else: ?>
-        Popular Recipes
-    <?php endif; ?>
+
+    <h1 class="header-title">
+        <?php if (count($recipes) === 0): ?>
+            Error
+        <?php elseif ($searchTerm): ?>
+            Results for “<?= htmlspecialchars($searchTerm) ?>”
+        <?php else: ?>
+            Popular Recipes
+        <?php endif; ?>
     </h1>
 </header> 
 
+<!-- IF NO RESULTS, SHOW FULL ERROR PAGE -->
+<?php if (count($recipes) === 0): ?>
+
+<div class="error-content-container">
+    <div class="error-content">
+        <p class="error-title">UH OH!</p>
+        <p class="error-message">
+            No recipes found for “<?= htmlspecialchars($searchTerm) ?>”.<br>
+            Try again — page does not exist or cannot be found.
+        </p>
+    </div>
+</div>
+
+<?php else: ?>
+
+<!-- OTHERWISE SHOW THE GRID -->
 <div class="recipe-container">
     <div class="recipe-grid">
-
-        <?php if (count($recipes) === 0): ?>
-            <p class="no-results">No recipes found for “<?= htmlspecialchars($searchTerm) ?>”</p>
-        <?php endif; ?>
 
         <?php foreach ($recipes as $recipe): ?>
         <a class="recipe-card" href="./instructions.php?id=<?= $recipe['id'] ?>">
@@ -137,9 +149,12 @@ $conn->close();
             </article>
         </a>
         <?php endforeach; ?>
-        
+
     </div>
 </div>
+
+<?php endif; ?>
+
 </main>
 
 <footer class="footer">
