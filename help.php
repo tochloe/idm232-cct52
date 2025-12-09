@@ -74,7 +74,7 @@ if (isset($_GET['search']) && !empty($_GET['search'])) {
         <p>Tag us @whoshungryrecipes so we can judge your culinary journey!</p>
     </div>
 
-    <p class="help-disclaimer">All recipes are provided by Blue Apron...</p>
+    <p class="help-disclaimer">all recipes are provided by blueapron, i do not claim to have ownerships of these photos/recipes. fake instagram.</p>
 </div>
 
 </main>

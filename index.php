@@ -1,45 +1,87 @@
 <?php
 require_once("db.php");
 
-// connect to database
 $conn = db_connect();
 
-// get search term if user submitted a search
 $searchTerm = $_GET['search'] ?? '';
+$cultureFilter = $_GET['culture'] ?? '';
 
-// UPDATED: allow searching
-function loadRecipesFromDatabase($conn, $searchTerm = '') {
+function loadRecipesFromDatabase($conn, $searchTerm = '', $cultureFilter = '') {
+    $recipes = [];
+
+    // Search through title, subheading, culture, AND ingredients column
+    $sql = "SELECT id, title, subheading, culture, hero_img FROM recipes3";
+    
+    $conditions = [];
+    $params = [];
 
     if ($searchTerm !== '') {
-        $safe = $conn->real_escape_string($searchTerm);
-
-        $sql = "
-            SELECT id, title, subheading, culture, hero_img 
-            FROM recipes3
-            WHERE title LIKE '%$safe%'
-               OR subheading LIKE '%$safe%'
-               OR culture LIKE '%$safe%'
-        ";
-    } else {
-        $sql = "SELECT id, title, subheading, culture, hero_img FROM recipes3";
+        // Search in title, subheading, culture, AND ingredients
+        $conditions[] = "(title LIKE ? OR subheading LIKE ? OR culture LIKE ? OR ingredients LIKE ?)";
+        $like = "%" . $searchTerm . "%";
+        $params[] = $like;
+        $params[] = $like;
+        $params[] = $like;
+        $params[] = $like;
     }
 
-    $result = $conn->query($sql);
-
-    if (!$result) {
-        die("SQL Error: " . $conn->error);
+    if ($cultureFilter !== '' && $cultureFilter !== 'all') {
+        $conditions[] = "culture = ?";
+        $params[] = $cultureFilter;
     }
 
-    $recipes = [];
+    if (!empty($conditions)) {
+        $sql .= " WHERE " . implode(" AND ", $conditions);
+    }
+
+    // Order by title for consistent results
+    $sql .= " ORDER BY title";
+
+    $stmt = $conn->prepare($sql);
+    if (!$stmt) {
+        die("Prepare failed: " . $conn->error);
+    }
+
+    if (!empty($params)) {
+        // Build the types string dynamically based on number of parameters
+        $types = str_repeat('s', count($params));
+        $stmt->bind_param($types, ...$params);
+    }
+
+    $stmt->execute();
+    $result = $stmt->get_result();
 
     while ($row = $result->fetch_assoc()) {
         $recipes[] = $row;
     }
 
+    $stmt->close();
     return $recipes;
 }
 
-$recipes = loadRecipesFromDatabase($conn, $searchTerm);
+// Get all unique cultures for filter buttons
+function getAllCultures($conn) {
+    $sql = "SELECT DISTINCT culture FROM recipes3 ORDER BY culture";
+    $stmt = $conn->prepare($sql);
+    
+    if (!$stmt) {
+        die("Prepare failed: " . $conn->error);
+    }
+    
+    $stmt->execute();
+    $result = $stmt->get_result();
+    
+    $cultures = [];
+    while ($row = $result->fetch_assoc()) {
+        $cultures[] = $row['culture'];
+    }
+    
+    $stmt->close();
+    return $cultures;
+}
+
+$recipes = loadRecipesFromDatabase($conn, $searchTerm, $cultureFilter);
+$allCultures = getAllCultures($conn);
 
 $conn->close();
 ?>
@@ -48,7 +90,7 @@ $conn->close();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./normalize.css">
+   <link rel="stylesheet" href="./normalize.css">
     <link rel="stylesheet" href="./style.css">
     <title>WHO'S HUNGRY?</title>
 </head>
@@ -56,6 +98,7 @@ $conn->close();
 
 <!-- NAVIGATION BAR -->
 <input type="checkbox" id="nav-toggle" class="nav-toggle">
+<label for="nav-toggle" class="nav-overlay"></label>
 
 <nav class="side">
 
@@ -69,6 +112,9 @@ $conn->close();
                 placeholder="Search recipes..." 
                 aria-label="Search recipes"
             >
+            <?php if ($cultureFilter): ?>
+                <input type="hidden" name="culture" value="<?= htmlspecialchars($cultureFilter) ?>">
+            <?php endif; ?>
             <button type="submit" class="search-button" aria-label="Search">
                 <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <circle cx="11" cy="11" r="8"></circle>
@@ -98,16 +144,22 @@ $conn->close();
 
 <main>
 
-<header class="header">
+<header>
     <label for="nav-toggle" class="menu-icon">
-        <img src="img/whos_hungry_logo.svg" alt="logo" class="menu-img">
+        <svg class="hamburger-menu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
     </label>
 
     <h1 class="header-title">
         <?php if (count($recipes) === 0): ?>
             Error
         <?php elseif ($searchTerm): ?>
-            Results for “<?= htmlspecialchars($searchTerm) ?>”
+            Results for "<?= htmlspecialchars($searchTerm) ?>"
+        <?php elseif ($cultureFilter && $cultureFilter !== 'all'): ?>
+            <?= htmlspecialchars($cultureFilter) ?> Recipes
         <?php else: ?>
             Popular Recipes
         <?php endif; ?>
@@ -121,7 +173,13 @@ $conn->close();
     <div class="error-content">
         <p class="error-title">UH OH!</p>
         <p class="error-message">
-            No recipes found for “<?= htmlspecialchars($searchTerm) ?>”.<br>
+            <?php if ($searchTerm): ?>
+                No recipes found for "<?= htmlspecialchars($searchTerm) ?>".<br>
+            <?php elseif ($cultureFilter): ?>
+                No recipes found for <?= htmlspecialchars($cultureFilter) ?> cuisine.<br>
+            <?php else: ?>
+                No recipes found.<br>
+            <?php endif; ?>
             Try again — page does not exist or cannot be found.
         </p>
     </div>
@@ -129,25 +187,48 @@ $conn->close();
 
 <?php else: ?>
 
-<!-- OTHERWISE SHOW THE GRID -->
+<!-- FILTER SECTION -->
+<div class="filter-section">
+    <div class="filter-container">
+        <a href="index.php" class="filter-button <?= $cultureFilter === '' || $cultureFilter === 'all' ? 'active' : '' ?>">
+            All
+        </a>
+        <?php foreach ($allCultures as $culture): ?>
+            <a href="index.php?culture=<?= urlencode($culture) ?>" 
+               class="filter-button <?= $cultureFilter === $culture ? 'active' : '' ?>">
+                <?= htmlspecialchars($culture) ?>
+            </a>
+        <?php endforeach; ?>
+    </div>
+</div> 
+
+
+
+<!-- RECIPE GRID -->
 <div class="recipe-container">
     <div class="recipe-grid">
 
         <?php foreach ($recipes as $recipe): ?>
-        <a class="recipe-card" href="./instructions.php?id=<?= $recipe['id'] ?>">
-            <article class="card">
-                <div class="card-border">
-                    <img 
-                        src="img/<?= htmlspecialchars($recipe['hero_img']) ?>" 
-                        alt="<?= htmlspecialchars($recipe['title']) ?>" 
-                        class="recipe-img"
-                    >
-                </div>
-                <div class="category-badge"><?= htmlspecialchars($recipe['culture']) ?></div>
-                <h2 class="recipe-title"><?= htmlspecialchars($recipe['title']) ?></h2>
-                <p class="recipe-sub">with <?= htmlspecialchars($recipe['subheading']) ?></p>
-            </article>
-        </a>
+       <div class="recipe-card">
+    <a href="./instructions.php?id=<?= $recipe['id'] ?>" class="card-link">
+        <article class="card">
+            <div class="card-border">
+                <img 
+                    src="img/<?= htmlspecialchars($recipe['hero_img']) ?>" 
+                    alt="<?= htmlspecialchars($recipe['title']) ?>" 
+                    class="recipe-img"
+                >
+            </div>
+            <a href="index.php?culture=<?= urlencode($recipe['culture']) ?>" class="category-badge">
+        <?= htmlspecialchars($recipe['culture']) ?>
+    </a>
+            <h2 class="recipe-title"><?= htmlspecialchars($recipe['title']) ?></h2>
+            <p class="recipe-sub">with <?= htmlspecialchars($recipe['subheading']) ?></p>
+        </article>
+    </a>
+
+    
+</div>
         <?php endforeach; ?>
 
     </div>
